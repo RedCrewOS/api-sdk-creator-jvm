@@ -1,0 +1,16 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+    id "apisdkcreator.jvm.configuration"
+}
+
+version "0.1-SNAPSHOT"
+
+dependencies {
+    api "com.github.RedCrewOS.api-sdk-creator-mpp:http-api-client:http-api-client_v0.2.0"
+
+    implementation platform("com.squareup.okhttp3:okhttp-bom:4.9.0")
+    implementation "com.squareup.okhttp3:okhttp"
+
+    testImplementation("com.squareup.okhttp3:mockwebserver")
+}
+

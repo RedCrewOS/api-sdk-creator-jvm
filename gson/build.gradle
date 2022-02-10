@@ -1,0 +1,11 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+    id "apisdkcreator.jvm.configuration"
+}
+
+version "0.1-SNAPSHOT"
+
+dependencies {
+    api "com.github.RedCrewOS.api-sdk-creator-mpp:http-api-client:http-api-client_v0.2.0"
+    api "com.google.code.gson:gson:2.8.9"
+}
