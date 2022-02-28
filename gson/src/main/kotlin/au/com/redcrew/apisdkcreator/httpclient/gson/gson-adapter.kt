@@ -20,8 +20,8 @@ fun gsonMarshaller(gson: Gson): Marshaller = {
 }
 
 // gsonUnmarshaller :: Gson -> KClass<T> -> Unmarshaller<T>
-fun gsonUnmarshaller(gson: Gson): GenericTypeUnmarshaller =
-    object : UnstructuredDataToGenericTypeUnmarshaller() {
+fun gsonUnmarshaller(gson: Gson): GenericClassUnmarshaller =
+    object : UnstructuredDataToGenericClassUnmarshaller() {
         override fun <T : Any> unmarshallString(cls: KClass<T>, data: String): Either<SdkError, T> =
             Either.catch(
                 { toUnmashallingError(it.message, it) },

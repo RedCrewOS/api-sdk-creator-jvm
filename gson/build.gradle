@@ -6,6 +6,6 @@ plugins {
 version "0.1-SNAPSHOT"
 
 dependencies {
-    api "com.github.RedCrewOS.api-sdk-creator-mpp:http-api-client:http-api-client_v0.2.0"
+    api "com.github.RedCrewOS.api-sdk-creator-mpp:http-api-client:http-api-client_v0.3.0"
     api "com.google.code.gson:gson:2.8.9"
 }

@@ -89,7 +89,7 @@ fun apiClient(client: HttpClient): suspend (HttpRequest<*>) -> Either<SdkError, 
  */
 suspend fun checkIp(
     client: suspend (HttpRequest<*>) -> Either<SdkError, HttpResult<*, UnstructuredData>>,
-    jsonUnmarshaller: GenericJsonResultHandler
+    unmarshaller: GenericClassUnmarshaller
 ): Either<SdkError, IpData> {
     /*
      * The operation specific components of the request.
@@ -100,23 +100,24 @@ suspend fun checkIp(
     )
 
     /*
-     * Because the response type (`IpData`) is now known we can configure the JSON Unmarshalling to
-     * convert JSON response data into an instance of the type.
+     * Because the response type (`IpData`) is now known we can configure the JSON Unmarshaller to
+     * convert JSON response data into an instance of the type. A HttpResultHandler can then be created
+     * to use the unmarshaller when response JSON is available.
      *
      * The final pipeline to send a request to the server is now complete.
      *
      * SDK developers should use partial application or closures to do this once and have the
      * pipeline available to all SDK operation invocations.
      */
-    val pipeline = client pipeK jsonUnmarshaller(IpData::class)
+    val pipeline = client pipeK jsonUnmarshaller(unmarshaller(IpData::class))
 
     /*
-     * So let's sent the request to the server
+     * So lets sent the request to the server
      */
      val result = pipeline(request)
 
     /*
-     * Finally extract the response body from the HttpResult and return it to the SDK caller.
+     * Finally, extract the response body from the HttpResult and return it to the SDK caller.
      *
      * If the result is an Either.Left, then the map() won't happen. This is the beauty of the Either monad in
      * action as we don't even have to think about error handling thanks to the polymorphic behaviour of monads.
@@ -144,7 +145,7 @@ fun main() {
      *  - https://developer.android.com/kotlin/coroutines
      */
     val result = runBlocking {
-        checkIp(apiClient(okHttpClient()), jsonUnmarshaller(unmarshaller))
+        checkIp(apiClient(okHttpClient()), unmarshaller)
     }
 
     /*
