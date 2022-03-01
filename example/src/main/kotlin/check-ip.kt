@@ -3,7 +3,7 @@
 import arrow.core.Either
 import arrow.core.leftIfNull
 import au.com.redcrew.apisdkcreator.httpclient.*
-import au.com.redcrew.apisdkcreator.httpclient.arrow.pipeK
+import au.com.redcrew.apisdkcreator.httpclient.arrow.pipe
 import au.com.redcrew.apisdkcreator.httpclient.gson.gsonMarshaller
 import au.com.redcrew.apisdkcreator.httpclient.gson.gsonUnmarshaller
 import au.com.redcrew.apisdkcreator.httpclient.okhttp.okHttpClient
@@ -72,14 +72,14 @@ fun apiClient(client: HttpClient): suspend (HttpRequest<*>) -> Either<SdkError, 
      * result of the pipeline will be an SdkError which SDK specific operations will need to pass back to client
      * applications, or handle internally.
      *
-     * The use of the `pipeK` operator is used to pipe the result of each expression to the next expression in the
-     * sequence. We take advantage of Kleisli arrows (hence the K) to compose monad returning functions together in a
-     * left to right reading style. Traditional function composition reads right to left (compose/composeK), however
+     * The use of the `pipe` operator is used to pipe the result of each expression to the next expression in the
+     * sequence. We take advantage of Kleisli arrows to compose monad returning functions together in a
+     * left to right reading style. Traditional function composition reads right to left (compose), however
      * the pipe style can aid in readability given most developers read left to right by default.
      *
-     * For a discussion of Kleisli see the `pipeK` documentation.
+     * For a discussion of Kleisli see the `pipe` documentation.
      */
-    return defaultHeaders pipeK jsonMarshaller(marshaller) pipeK client
+    return defaultHeaders pipe jsonMarshaller(marshaller) pipe client
 }
 
 /*
@@ -109,7 +109,7 @@ suspend fun checkIp(
      * SDK developers should use partial application or closures to do this once and have the
      * pipeline available to all SDK operation invocations.
      */
-    val pipeline = client pipeK jsonUnmarshaller(unmarshaller(IpData::class))
+    val pipeline = client pipe jsonUnmarshaller(unmarshaller(IpData::class))
 
     /*
      * So lets sent the request to the server

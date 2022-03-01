@@ -15,7 +15,7 @@ allprojects {
 
 ext {
     arrowVersion = "1.0.1"
-    httpApiClientVersion = "http-api-client_v0.3.0"
+    httpApiClientVersion = "http-api-client_v0.4.0"
     kotlinCoroutinesVersion = "1.6.0"
     kotestVersion = "5.1.0"
 }
