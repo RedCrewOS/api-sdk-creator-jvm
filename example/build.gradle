@@ -6,7 +6,7 @@ plugins {
 version "0.1-SNAPSHOT"
 
 dependencies {
-    implementation "com.github.RedCrewOS.api-sdk-creator-mpp:http-api-client:http-api-client_v0.3.0"
+    implementation "com.github.RedCrewOS.api-sdk-creator-mpp:http-api-client:$httpApiClientVersion"
     implementation project(":ok-http")
     implementation project(":gson")
 
