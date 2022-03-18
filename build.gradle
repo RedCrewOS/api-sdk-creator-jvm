@@ -2,8 +2,7 @@ plugins {
 
 }
 
-group "org.example"
-version "1.0-SNAPSHOT"
+group "au.com.redcrew.apisdkcreator.jvm"
 
 allprojects {
     repositories {
